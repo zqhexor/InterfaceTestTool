@@ -1,0 +1,4 @@
+======================
+IPU service is running
+${spring-boot.formatted-version}
+======================

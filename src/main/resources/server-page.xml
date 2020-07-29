@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+    <!-- 用户登录 -->
+    <action name="Login" template="template/webapp/login.html"></action>
+    <!-- 接口测试 -->
+    <action name="InterfaceTest" template="template/webapp/interface-test.html"></action>
+</pages>

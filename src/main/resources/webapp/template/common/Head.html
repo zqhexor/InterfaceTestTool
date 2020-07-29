@@ -1,0 +1,25 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1"><!-- 宽度自动适配 -->
+<meta content="telephone=no" name="format-detection" /><!-- 不识别页面上的数字为可拨打号码 -->
+
+<link rel="stylesheet" type="text/css" href="ipu/ui/css/ipuUI.css">
+<link rel="stylesheet" type="text/css" href="biz/css/iconfont/iconfont.css">
+<link rel="stylesheet" type="text/css" href="ipu/lib/mdi/css/mdi.css">
+<link rel="stylesheet" type="text/css" href="biz/css/base.css">
+<script src="ipu/lib/requirejs/require.js"></script>
+<script src="ipu/require-config.js"></script>
+<script src="biz/js/common/require-config.js" ></script>
+
+
+<!--注:由于html页面会被加密,不能使用双斜杠作为注释符号-->
+<script>
+/*自定义增加每个页面需要执行的公共逻辑*/
+require(["mobile","jquery"],function(Mobile, $) {
+	$(function(){
+		/*每个页面的back样式都需要执行回退*/
+		$("#back").click(function(){
+			Mobile.back();
+		});
+	});
+}); 
+</script>

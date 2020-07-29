@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+  <title>接口测试</title>
+  {%>template/common/Head.html%}
+  <script src="biz/js/interface-test.js"></script>
+</head>
+<body class="pages-interface-test">
+<div class="ipu-flex-row ipu-flex-vertical">
+  <div class="ipu-flex-col">
+    <div class="normal-title">接口测试工具</div>
+  </div>
+  <div class="ipu-flex-col ipu-flex-col-auto">
+    <div class="ipu-form-item">
+      <div class="ipu-flex common-border-bottom">
+        <div class="item-key">请求Action：</div>
+        <div class="item-value ipu-flex-col-auto">
+          <input type="text" placeholder="请输入"/>
+        </div>
+      </div>
+      <div class="check-tips"></div>
+    </div>
+    <div class="ipu-form-item">
+      <div class="ipu-flex common-border-bottom">
+        <div class="item-key">加密：</div>
+        <div class="item-value ipu-flex-col-auto">
+          <div class="ipu-flex ipu-flex-justify-end ipu-flex-align-center">
+            <label class="ipu-switch">
+              <input class="ipu-switch-input" type="checkbox">
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="check-tips"></div>
+    </div>
+    <div class="ipu-form-item">
+      <div class="ipu-flex common-border-bottom">
+        <div class="item-key">KEY：</div>
+        <div class="item-value ipu-flex-col-auto">
+          <input type="text" placeholder="请输入"/>
+        </div>
+      </div>
+      <div class="check-tips"></div>
+    </div>
+    <div class="ipu-form-item">
+      <div class="common-border-bottom">
+        <div class="ipu-flex ipu-flex-justify-space">
+          <div class="item-key">请求数据(明文)：</div>
+        </div>
+        <div class="item-value">
+          <textarea class="textarea-content" placeholder="请求数据"></textarea>
+          <div class="item-value-textarea">
+            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300</div>
+          </div>
+        </div>
+      </div>
+      <div class="check-tips"></div>
+    </div>
+    <div class="ipu-form-item">
+      <div class="common-border-bottom">
+        <div class="ipu-flex ipu-flex-justify-space">
+          <div class="item-key">请求数据(密文)：</div>
+        </div>
+        <div class="item-value">
+          <textarea class="textarea-content" placeholder="请求数据"></textarea>
+          <div class="item-value-textarea">
+            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300</div>
+          </div>
+        </div>
+      </div>
+      <div class="check-tips"></div>
+    </div>
+    <div class="ipu-form-item">
+      <div class="common-border-bottom">
+        <div class="ipu-flex ipu-flex-justify-space">
+          <div class="item-key">响应数据(明文)：</div>
+        </div>
+        <div class="item-value">
+          <textarea class="textarea-content" placeholder="响应数据"></textarea>
+          <div class="item-value-textarea">
+            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300</div>
+          </div>
+        </div>
+      </div>
+      <div class="check-tips"></div>
+    </div>
+    <div class="ipu-form-item">
+      <div class="common-border-bottom">
+        <div class="ipu-flex ipu-flex-justify-space">
+          <div class="item-key">响应数据(密文)：</div>
+        </div>
+        <div class="item-value">
+          <textarea class="textarea-content" placeholder="响应数据"></textarea>
+          <div class="item-value-textarea">
+            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300</div>
+          </div>
+        </div>
+      </div>
+      <div class="check-tips"></div>
+    </div>
+    <div class="ipu-form-item">
+      <div class="common-border-bottom">
+        <div class="ipu-flex">
+          <div class="item-key">publicKey文件选择：</div>
+          <div class="item-value ipu-flex-col-auto">
+            <div class="ipu-flex ipu-flex-justify-end ipu-flex-align-center">
+              <button class="ipu-btn common-btn-blue needsclick" id="upload-btn">上传</button>
+              <input type="file" id="file" accept style="display:none">
+            </div>
+          </div>
+        </div>
+        <div class="file-area">
+          <span class="file-item"></span><i class="iconfont-material icon-delete"></i>
+        </div>
+
+      </div>
+
+      <div class="check-tips"></div>
+    </div>
+  </div>
+  <div class="ipu-flex-col form-btns">
+    <button class="ipu-btn common-btn common-btn-blue">测试</button>
+  </div>
+</div>
+</body>
+</html>

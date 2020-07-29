@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+  <title>登录</title>
+  {%>template/common/Head.html%}
+  <script src="biz/js/login.js"></script>
+</head>
+<body class="pages-login">
+<div class="ipu-flex-row ipu-flex-vertical">
+    <div class="ipu-flex-col  login-head">
+      <div class="login-head-content">
+        <div class="app-info">
+          <span class="app-logo"></span>
+          <span class="app-name">超级客户端登录</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="ipu-flex-col ipu-flex-col-auto ipu-flex-row ipu-flex-vertical">
+      <div class="ipu-flex-col ipu-tab-body">
+
+        <ul class="type-4a">
+          <li class="login-type-4a">
+            <div class="page-content">
+              <div class="page-form">
+
+                <div class="form-row-label">
+                  NT账号
+                </div>
+                <div class="ipu-flex form-row">
+                  <div class="ipu-flex-col-auto  form-input-wrap">
+                    <input type="text" class="form-input" id="4a_name" placeholder="请输入您的用户名">
+                  </div>
+                  <div class="ipu-flex-col form-input-asset">
+                    <div class="app-icon icon-close-circle input-clear"></div>
+                  </div>
+                </div>
+
+                <div class="form-row-label">
+                  密码
+                </div>
+                <div class="ipu-flex form-row">
+                  <div class="ipu-flex-col-auto  form-input-wrap">
+                    <input type="password" class="form-input" id="4a_password" placeholder="请输入您的密码">
+                  </div>
+                  <div class="ipu-flex-col form-input-asset">
+                    <div class="app-icon icon-close-circle input-clear"></div>
+                  </div>
+                </div>
+
+                <div class="form-row-label">
+                  短信验证码
+                </div>
+                <div class="ipu-flex form-row">
+                  <div class="ipu-flex-col-auto  form-input-wrap">
+                    <input type="text" class="form-input" id="4a_code" placeholder="请输入您的短信验证码" disabled>
+                  </div>
+                  <div class="ipu-flex-col form-input-asset">
+                    <div class="send-code">发送验证码</div>
+                  </div>
+                </div>
+
+                <div class="login-assets">
+                  <a  href="javascript:;" class="link-gesture-login" id="gesture-pass-login">手势密码登录</a>
+                  <div class="remember-pwd">
+                    <div class="ipu-flex">
+                      <div class="app-icon icon-checkbox-blank-circle-outline"></div>
+                      <div><p>记住密码</p></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-btns">
+                  <button class="ipu-btn common-btn" disabled>登录</button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+</div>
+</body>
+</html>

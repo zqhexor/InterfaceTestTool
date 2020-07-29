@@ -1,0 +1,24 @@
+<assembly>
+    <id>bin</id>
+    <formats>
+        <format>zip</format>
+        <!-- <format>tar.gz</format> -->
+    </formats>
+    <!-- 把工程编译的jar打包进zip包的根目录 -->
+    <files>
+		<file>
+			<source>${project.build.directory}/${project.artifactId}.jar</source>
+			<outputDirectory>/</outputDirectory>
+		</file>
+	</files>
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.directory}/lib</directory>
+            <outputDirectory>/lib</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/config</directory>
+            <outputDirectory>/config</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>

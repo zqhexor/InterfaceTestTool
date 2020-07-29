@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.ai.ipu.server</groupId>
+		<artifactId>ipu-server-libs</artifactId>
+		<version>3.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>InterfaceTestTool</artifactId>
+	<packaging>jar</packaging>
+
+	<name>接口测试工具</name>
+	<url>http://maven.apache.org</url>
+
+	<repositories>
+		<!-- IPU相关仓库 -->
+		<repository>
+			<id>ipu</id>
+			<name>ipu repository</name>
+			<url>http://114.215.100.48:9090/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<properties>
+		<start-class>com.ai.interfacetest.IpuServerDemoStart</start-class>
+		<junit>4.12</junit>
+	</properties>
+
+	<dependencies>
+	</dependencies>
+
+	<build>
+		<finalName>InterfaceTestTool</finalName>
+	</build>
+</project>

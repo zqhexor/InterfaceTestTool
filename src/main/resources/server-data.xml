@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datas>
+    <!-- 普通登录 -->
+    <action name="LoginBean.login" class="com.ai.interfacetest.bean.LoginBean" method="login" verify="false"></action>
+    <!-- 模拟发送验证码 -->
+    <action name="LoginBean.sendVerificationCode" class="com.ai.interfacetest.bean.LoginBean" method="sendVerificationCode" verify="false"></action>
+</datas>

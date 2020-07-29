@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <settings>
+		<setting name="defaultFetchSize" value="1000" /> <!-- 结果集获取数量提示值，分批传输 -->
+	</settings>
+    <plugins>
+        <!-- 分页插件，可根据参数定制化 -->
+	    <plugin interceptor="com.github.pagehelper.PageInterceptor">
+	        <!-- config params as the following -->
+		</plugin>
+	</plugins>
+	<environments default="test">
+		<environment id="bit_push">
+			<transactionManager type="JDBC" />
+			<dataSource type="com.ai.ipu.database.datasource.DruidDataSourceFactory">
+				<property name="url" value="" />
+				<property name="username" value="" />
+				<property name="password" value="" />
+				<!-- 配置获取连接的等待超时时间 -->
+				<property name="maxWait" value="5000" />
+				<!-- 配置初始化大小、最小、最大 -->
+				<property name="initialSize" value="3" />
+				<property name="minIdle" value="3" />
+				<property name="maxActive" value="20" />
+				<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+				<property name="minEvictableIdleTimeMillis" value="300000" />
+				<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+				<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+				<property name="validationQuery" value="SELECT 'x'" />
+				<property name="testWhileIdle" value="true" />
+				<property name="testOnBorrow" value="false" />
+				<property name="testOnReturn" value="false" />
+				<!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+				<property name="filters" value="stat" />
+
+				<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+				<property name="poolPreparedStatements" value="true" />
+				<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+			</dataSource>
+		</environment>
+	</environments>
+</configuration>

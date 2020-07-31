@@ -16,13 +16,8 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
       })
     });
 
-    // 新增键值对
-    function addRequestItem(){
-      let htmlStr = $("#request-item").html();
-      $(".request-area").append(htmlStr);
-      updateRequestItem();
-    }
 
+    // 新增键值对
     $(".request-area").on("click", ".add-sign", function () {
       addRequestItem();
     });
@@ -32,6 +27,13 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
       $(this).parents(".request-item").remove();
       updateRequestItem();
     });
+
+    // 增加一个key、value输入组件
+    function addRequestItem(){
+      let htmlStr = $("#request-item").html();
+      $(".request-area").append(htmlStr);
+      updateRequestItem();
+    }
 
     // 更新键值对区域样式
     function updateRequestItem() {
@@ -45,7 +47,9 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
     // 键盘检测输入事件
     $(".request-area").on("keyup", "input", function () {
       //当输入一个新的key时,自动的增加一组新的键值对
-      // addRequestItem();
+      if ($(this).parents(".ipu-form-item").nextAll(".ipu-form-item").size() <= 0) {
+        addRequestItem();
+      }
     });
 
     // 更新url参数

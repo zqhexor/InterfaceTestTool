@@ -8,10 +8,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import  org.apache.commons.lang3.StringUtils;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Map;
-import java.util.Set;
 
 /**
  * 用于测试接口的Bean,
@@ -29,7 +28,11 @@ public class ActionBean extends IpuAppBean {
     public IData getActionBean(IData param) throws Exception {
 
         //从param中拿走action
-        String action = (String) param.remove("action");
+        StringBuilder action = new StringBuilder();
+        action.append((String) param.remove("action"));
+
+        //对action进行格式化
+        autoFormat(action);
 
         //从param中拿走isEncrypt
         Boolean isEncrypt = Boolean.parseBoolean((String) param.remove("isEncrypt"));
@@ -43,10 +46,13 @@ public class ActionBean extends IpuAppBean {
         });
 
         //去掉url末尾的&
-        url.delete(url.length() - 1,url.length());
+        if (!StringUtils.isEmpty(url)){
+            url.delete(url.length() - 1,url.length());
+        }
+
 
         //判断action中是否已经有?拼接的参数了
-        if (action.indexOf('?') < 0 ){
+        if (action.toString().indexOf('?') < 0 ){
             //没有,url首位插入?
             url.insert(0,"?");
         }else {
@@ -55,18 +61,25 @@ public class ActionBean extends IpuAppBean {
         }
 
         //把url添加到Action之后
-        action += url;
+        action.append(url);
 
         //创建Rest请求工具
         RestTemplate restTemplate = new RestTemplate();
-        //发送get请求
-        String result = restTemplate.getForObject(action, String.class);
 
         //创建返回对象
         IData resultData = createReturnData();
 
-        //把返回值封装到resultDate中
-        resultData.put("result",result);
+        //发送get请求
+        String result = null;
+        try {
+            result = restTemplate.getForObject(action.toString(), String.class);
+            //把返回值封装到resultDate中
+            resultData.put("result",result);
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            //把错误信息封装到resultDate中
+            resultData.put("error",e);
+        }
 
         return resultData;
     }
@@ -80,13 +93,21 @@ public class ActionBean extends IpuAppBean {
     public IData postActionBean(IData param) throws Exception {
 
         //从param中拿走action
-        String action = (String) param.remove("action");
+        StringBuilder action = new StringBuilder();
+        action.append((String) param.remove("action"));
+
+        //对action进行格式化
+        autoFormat(action);
 
         //从param中拿走isEncrypt
         Boolean isEncrypt = Boolean.parseBoolean((String) param.remove("isEncrypt"));
 
         //创建Rest请求工具
         RestTemplate restTemplate = new RestTemplate();
+
+        //创建返回对象
+        IData resultData = createReturnData();
+
 
         //设置请求数据的格式,以方便亚信内部以IData的格式接收
         HttpHeaders headers = new HttpHeaders();
@@ -100,16 +121,34 @@ public class ActionBean extends IpuAppBean {
         HttpEntity<MultiValueMap<String, String> > requestEntity = new HttpEntity<> (myParams, headers);
 
         //发送post请求
-        String result = restTemplate.postForObject(action, requestEntity,String.class);
+        String result = null;
+        try {
+            result = restTemplate.postForObject(action.toString(), requestEntity,
+                        String.class);
+            //把返回值封装到resultDate中
+            resultData.put("result",result);
+        } catch (RestClientException e) {
+            e.printStackTrace();
 
-        //创建返回对象
-        IData resultData = createReturnData();
-
-        //把返回值封装到resultDate中
-        resultData.put("result",result);
+            resultData.put("error",e);
+        }
 
         return resultData;
     }
+
+    //对action格式化的方法
+    private void autoFormat(StringBuilder action) {
+        //判断action开头是不是"http(s)://"
+        if (!StringUtils.startsWithAny(action,"http://","https://")){
+            //不是就修改成http://
+            action.insert(0,"http://");
+        }
+
+
+
+    }
+
+
 
 
 

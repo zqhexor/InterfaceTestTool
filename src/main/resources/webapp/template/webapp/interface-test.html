@@ -27,8 +27,10 @@
           <div class="ipu-flex ipu-flex-justify-end ipu-flex-align-center">
             <div class="ipu-flex ipu-flex-justify-end ipu-flex-align-center">
               <div class="ipu-radio">
-                <input class="radio_type" type="radio" name="type" id="post" value="POST" checked/><label for="post">POST</label>
-                <input class="radio_type" type="radio" name="type" id="get" value="GET"/><label for="get">GET</label>
+                <input class="radio_type" type="radio" name="type" id="post" value="POST"
+                       checked/><label for="post">POST</label>
+                <input class="radio_type" type="radio" name="type" id="get"
+                       value="GET"/><label for="get">GET</label>
               </div>
             </div>
           </div>
@@ -42,7 +44,7 @@
         <div class="item-value ipu-flex-col-auto">
           <div class="ipu-flex ipu-flex-justify-end ipu-flex-align-center">
             <label class="ipu-switch">
-              <input class="ipu-switch-input" type="checkbox">
+              <input id="isEncrypt" class="ipu-switch-input" type="checkbox">
             </label>
           </div>
         </div>
@@ -72,7 +74,8 @@
       <div class="ipu-form-item request-item">
         <div class="ipu-flex common-border-bottom">
           <div class="item-key ipu-fn-hide">请求键值对：</div>
-          <div class="item-value ipu-flex-col-auto ipu-flex ipu-flex-justify-end ipu-flex-align-center" style="min-height: .5rem;">
+          <div class="item-value ipu-flex-col-auto ipu-flex ipu-flex-justify-end ipu-flex-align-center"
+               style="min-height: .5rem;">
             <input class="request-key" type="text" placeholder="key"/>
             <input class="request-value" type="text" placeholder="value"/>
             <div class="delete-sign ipu-fn-hide"></div>
@@ -89,7 +92,8 @@
         <div class="item-value">
           <textarea class="textarea-content" placeholder="请求数据"></textarea>
           <div class="item-value-textarea">
-            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300</div>
+            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300
+            </div>
           </div>
         </div>
       </div>
@@ -103,7 +107,8 @@
         <div class="item-value">
           <textarea class="textarea-content" placeholder="请求数据"></textarea>
           <div class="item-value-textarea">
-            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300</div>
+            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300
+            </div>
           </div>
         </div>
       </div>
@@ -117,7 +122,8 @@
         <div class="item-value">
           <textarea class="textarea-content" placeholder="响应数据"></textarea>
           <div class="item-value-textarea">
-            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300</div>
+            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300
+            </div>
           </div>
         </div>
       </div>
@@ -131,7 +137,8 @@
         <div class="item-value">
           <textarea class="textarea-content" placeholder="响应数据"></textarea>
           <div class="item-value-textarea">
-            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300</div>
+            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300
+            </div>
           </div>
         </div>
       </div>
@@ -143,7 +150,8 @@
           <div class="item-key">publicKey文件选择：</div>
           <div class="item-value ipu-flex-col-auto">
             <div class="ipu-flex ipu-flex-justify-end ipu-flex-align-center">
-              <button class="ipu-btn common-btn-blue needsclick" id="upload-btn">上传</button>
+              <button class="ipu-btn common-btn-blue needsclick" id="upload-btn">上传
+              </button>
               <input type="file" id="file" accept style="display:none">
             </div>
           </div>
@@ -167,9 +175,13 @@
   <div class="ipu-form-item request-item">
     <div class="ipu-flex common-border-bottom">
       <div class="item-key ipu-fn-hide">请求键值对：</div>
-      <div class="item-value ipu-flex-col-auto ipu-flex ipu-flex-justify-end ipu-flex-align-center" style="min-height: .5rem;">
+      <div class="item-value ipu-flex-col-auto ipu-flex ipu-flex-justify-end ipu-flex-align-center"
+           style="min-height: .5rem;">
+
         <input class="request-key" type="text" placeholder="key"/>
+
         <input class="request-value" type="text" placeholder="value"/>
+
         <div class="delete-sign ipu-fn-hide"></div>
       </div>
     </div>

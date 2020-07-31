@@ -116,13 +116,15 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
           params.put(key, value);
         }
       }
-
+      $("#request-decode").val(params.toString());
       //向后台发送请求
+      ipuUI.showIndicator();
       Common.callSvc(requestType, params, function (result) {
+        ipuUI.hideIndicator();
         result = typeof (result) == "string" ? Wade.DataMap(result) : result;
         console.log(result);
         if (result.get(Constant.RETURN_CODE_KEY) == Constant.RETURN_CODE_SUCCESS) {
-
+          $("#response-decode").val(result.get("result").toString());
         } else {
           ipuUI.toast(result.get(Constant.RETURN_MSG_KEY));
         }

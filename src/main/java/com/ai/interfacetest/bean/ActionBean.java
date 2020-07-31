@@ -3,6 +3,7 @@ package com.ai.interfacetest.bean;
 import com.ai.interfacetest.core.bean.IpuAppBean;
 import com.ailk.common.data.IData;
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -43,7 +44,9 @@ public class ActionBean extends IpuAppBean {
         });
 
         //去掉url末尾的&
-        url.delete(url.length() - 1,url.length());
+        if (!StringUtils.isEmpty(url)){
+            url.delete(url.length() - 1,url.length());
+        }
 
         //判断action中是否已经有?拼接的参数了
         if (action.indexOf('?') < 0 ){

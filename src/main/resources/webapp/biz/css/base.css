@@ -1576,6 +1576,11 @@ d
   margin-left: .12rem;
   margin-bottom: .03rem;
 }
+.ipu-switch input:checked:before {
+  border-color: #3F93F8;
+  background-color: #3F93F8;
+  box-shadow: #3F93F8 0 0 0 0.16rem inset;
+}
 .ipu-radio input {
   margin-right: .04rem;
   width: 0.12rem;

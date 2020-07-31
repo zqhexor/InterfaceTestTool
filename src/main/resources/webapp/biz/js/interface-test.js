@@ -16,7 +16,6 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
       })
     });
 
-
     // 新增键值对
     $(".request-area").on("click", ".add-sign", function () {
       addRequestItem();
@@ -24,12 +23,16 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
 
     // 删除键值对
     $(".request-area").on("click", ".delete-sign", function () {
-      $(this).parents(".request-item").remove();
+      if($(this).hasClass("clear-sign")){
+        $(this).parents(".request-item").find("input").val("");
+      }else{
+        $(this).parents(".request-item").remove();
+      }
       updateRequestItem();
     });
 
     // 增加一个key、value输入组件
-    function addRequestItem(){
+    function addRequestItem() {
       let htmlStr = $("#request-item").html();
       $(".request-area").append(htmlStr);
       updateRequestItem();
@@ -38,9 +41,9 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
     // 更新键值对区域样式
     function updateRequestItem() {
       if ($(".request-area").find(".request-item").size() <= 1) {
-        $(".delete-sign").addClass("ipu-fn-hide");
+        $(".delete-sign").addClass("clear-sign");
       } else {
-        $(".delete-sign").removeClass("ipu-fn-hide");
+        $(".delete-sign").removeClass("clear-sign");
       }
     }
 
@@ -92,16 +95,16 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
       //获取当前提交的类型
       let type = $("input[name='type']:checked").val();
       var requestType = "";//请求方式
-      if (type === "GET"){
+      if (type === "GET") {
         //设置成get请求
         requestType = "ActionBean.getActionBean";
-      }else{
+      } else {
         //设置成post请求
         requestType = "ActionBean.postActionBean";
       }
 
       //封装参数
-      var params = Wade.DataMap();
+      let params = Wade.DataMap();
       params.put("action", $("#action").val());//封装action
       params.put("isEncrypt", $("#isEncrypt").prop("checked"));//封装是否加密 id++
 
@@ -110,20 +113,18 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
         let key = $(".request-item").eq(i).find("input:eq(0)").val().trim();
         let value = $(".request-item").eq(i).find("input:eq(1)").val().trim();
         if (key != "" && value != "") {
-          params.put(key,value);
+          params.put(key, value);
         }
       }
 
       //向后台发送请求
       Common.callSvc(requestType, params, function (result) {
         result = typeof (result) == "string" ? Wade.DataMap(result) : result;
+        console.log(result);
         if (result.get(Constant.RETURN_CODE_KEY) == Constant.RETURN_CODE_SUCCESS) {
-          ipuUI.toast(result.get(Constant.RETURN_MSG_KEY));
-          // 登录按钮可用
-          $(".ipu-btn").prop("disabled", false);
+
         } else {
           ipuUI.toast(result.get(Constant.RETURN_MSG_KEY));
-          return;
         }
       });
     });

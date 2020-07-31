@@ -1606,6 +1606,10 @@ d
   height: .2rem;
   margin-left: .1rem;
 }
+.delete-sign.clear-sign {
+  background: url(../img/clear-sign.png) center center no-repeat;
+  background-size: contain;
+}
 .request-key,.request-value{
   display: block;
   width:35%!important;

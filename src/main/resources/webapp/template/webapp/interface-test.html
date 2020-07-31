@@ -15,7 +15,23 @@
       <div class="ipu-flex common-border-bottom">
         <div class="item-key">请求Action：</div>
         <div class="item-value ipu-flex-col-auto">
-          <input type="text" placeholder="请输入"/>
+          <input id="action" type="text" placeholder="请输入"/>
+        </div>
+      </div>
+      <div class="check-tips"></div>
+    </div>
+    <div class="ipu-form-item">
+      <div class="ipu-flex common-border-bottom">
+        <div class="item-key">请求方式：</div>
+        <div class="item-value ipu-flex-col-auto">
+          <div class="ipu-flex ipu-flex-justify-end ipu-flex-align-center">
+            <div class="ipu-flex ipu-flex-justify-end ipu-flex-align-center">
+              <div class="ipu-radio">
+                <input class="radio_type" type="radio" name="type" id="post" value="POST" checked/><label for="post">POST</label>
+                <input class="radio_type" type="radio" name="type" id="get" value="GET"/><label for="get">GET</label>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="check-tips"></div>
@@ -41,6 +57,29 @@
         </div>
       </div>
       <div class="check-tips"></div>
+    </div>
+    <div class="request-area">
+      <div class="ipu-form-item request-title">
+        <div class="ipu-flex common-border-bottom">
+          <div class="item-key">请求键值对：</div>
+          <div class="item-value ipu-flex-col-auto">
+            <div class="ipu-flex ipu-flex-justify-end ipu-flex-align-center">
+              <div class="add-sign"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ipu-form-item request-item">
+        <div class="ipu-flex common-border-bottom">
+          <div class="item-key ipu-fn-hide">请求键值对：</div>
+          <div class="item-value ipu-flex-col-auto ipu-flex ipu-flex-justify-end ipu-flex-align-center" style="min-height: .5rem;">
+            <input class="request-key" type="text" placeholder="key"/>
+            <input class="request-value" type="text" placeholder="value"/>
+            <div class="delete-sign ipu-fn-hide"></div>
+          </div>
+        </div>
+        <div class="check-tips"></div>
+      </div>
     </div>
     <div class="ipu-form-item">
       <div class="common-border-bottom">
@@ -123,4 +162,18 @@
   </div>
 </div>
 </body>
+<!-- 新增键值对 -->
+<script type="text/template" id="request-item">
+  <div class="ipu-form-item request-item">
+    <div class="ipu-flex common-border-bottom">
+      <div class="item-key ipu-fn-hide">请求键值对：</div>
+      <div class="item-value ipu-flex-col-auto ipu-flex ipu-flex-justify-end ipu-flex-align-center" style="min-height: .5rem;">
+        <input class="request-key" type="text" placeholder="key"/>
+        <input class="request-value" type="text" placeholder="value"/>
+        <div class="delete-sign ipu-fn-hide"></div>
+      </div>
+    </div>
+    <div class="check-tips"></div>
+  </div>
+</script>
 </html>

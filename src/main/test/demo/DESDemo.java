@@ -3,17 +3,22 @@ package demo;
 import com.ai.ipu.basic.cipher.DES;
 import com.ai.ipu.basic.log.ILogger;
 import com.ai.ipu.basic.log.IpuLoggerFactory;
+import com.ai.ipu.server.servlet.ServletManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.security.Key;
 
 @RunWith(SpringRunner.class)
 public class DESDemo {
 
     @Test
-    public void test1(){
+    public void test1() throws Exception {
 //        String key = "325m@#$rt4vt";
-        String key = "123456789012345";//加密的密钥
+        String key = "12345678";//加密的密钥
+
+        Key resKey = DES.getKey(ServletManager.getSecurityHandle().getResKey());
         try {
             String strMi = DES.encryptString(DES.getKey(key), "中文测试abc_123");
             System.out.println("strMi : " + strMi);

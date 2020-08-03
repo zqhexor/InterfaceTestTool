@@ -106,6 +106,7 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
       //封装参数
       let params = Wade.DataMap();
       params.put("action", $("#action").val());//封装action
+      params.put("url", $("#url").val());//封装action
       params.put("isEncrypt", $("#isEncrypt").prop("checked"));//封装是否加密 id++
 
       //封装key-value
@@ -125,6 +126,8 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
         console.log(result);
         if (result.get(Constant.RETURN_CODE_KEY) == Constant.RETURN_CODE_SUCCESS) {
           $("#response-decode").val(result.get("result").toString());
+          $("#request-encode").val(result.get("requestEncrypt").toString());
+          $("#response-encode").val(result.get("resultEncrypt").toString());
         } else {
           ipuUI.toast(result.get(Constant.RETURN_MSG_KEY));
         }

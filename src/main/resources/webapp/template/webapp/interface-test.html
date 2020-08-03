@@ -22,6 +22,15 @@
     </div>
     <div class="ipu-form-item">
       <div class="ipu-flex common-border-bottom">
+        <div class="item-key">请求URL：</div>
+        <div class="item-value ipu-flex-col-auto">
+          <input id="url" type="text" placeholder="请输入"/>
+        </div>
+      </div>
+      <div class="check-tips"></div>
+    </div>
+    <div class="ipu-form-item">
+      <div class="ipu-flex common-border-bottom">
         <div class="item-key">请求方式：</div>
         <div class="item-value ipu-flex-col-auto">
           <div class="ipu-flex ipu-flex-justify-end ipu-flex-align-center">
@@ -102,6 +111,21 @@
     <div class="ipu-form-item">
       <div class="common-border-bottom">
         <div class="ipu-flex ipu-flex-justify-space">
+          <div class="item-key">请求数据(密文)：</div>
+        </div>
+        <div class="item-value">
+          <textarea id="request-encode" class="textarea-content" placeholder="请求数据"></textarea>
+          <div class="item-value-textarea">
+            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="check-tips"></div>
+    </div>
+    <div class="ipu-form-item">
+      <div class="common-border-bottom">
+        <div class="ipu-flex ipu-flex-justify-space">
           <div class="item-key">响应数据(明文)：</div>
         </div>
         <div class="item-value">
@@ -117,25 +141,10 @@
     <div class="ipu-form-item">
       <div class="common-border-bottom">
         <div class="ipu-flex ipu-flex-justify-space">
-          <div class="item-key">请求数据(密文)：</div>
-        </div>
-        <div class="item-value">
-          <textarea class="textarea-content" placeholder="请求数据"></textarea>
-          <div class="item-value-textarea">
-            <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="check-tips"></div>
-    </div>
-    <div class="ipu-form-item">
-      <div class="common-border-bottom">
-        <div class="ipu-flex ipu-flex-justify-space">
           <div class="item-key">响应数据(密文)：</div>
         </div>
         <div class="item-value">
-          <textarea class="textarea-content" placeholder="响应数据"></textarea>
+          <textarea id="response-encode" class="textarea-content" placeholder="响应数据"></textarea>
           <div class="item-value-textarea">
             <div class="text-statistic ipu-fn-hide"><span class="text-number">0</span>/300
             </div>

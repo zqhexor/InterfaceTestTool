@@ -113,7 +113,30 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
     // 加密
     $("#isEncrypt").change(function () {
       if ($(this).prop("checked") == true) {
-
+        //封装参数
+        let params = Wade.DataMap();
+        params.put("publicKey",publicKey);
+        //封装key-value
+        for (let i = 0; i < $(".request-item").size(); i++) {
+          let key = $(".request-item").eq(i).find("input:eq(0)").val().trim();
+          let value = $(".request-item").eq(i).find("input:eq(1)").val().trim();
+          if (key != "" && value != "") {
+            params.put(key, value);
+          }
+        }
+        $("#request-decode").val(params.toString());
+        //向后台发送请求
+        ipuUI.showIndicator();
+        Common.callSvc("CustomerBean.encryptRequest", params, function (result) {
+          ipuUI.hideIndicator();
+          result = typeof (result) == "string" ? Wade.DataMap(result) : result;
+          console.log(result);
+          if (result.get(Constant.RETURN_CODE_KEY) == Constant.RETURN_CODE_SUCCESS) {
+            console.log("成功!!!");
+          } else {
+            ipuUI.toast(result.get(Constant.RETURN_MSG_KEY));
+          }
+        });
       }
     })
 

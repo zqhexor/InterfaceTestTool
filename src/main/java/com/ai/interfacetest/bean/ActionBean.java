@@ -14,6 +14,7 @@ import org.springframework.util.MultiValueMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -28,9 +29,6 @@ public class ActionBean extends IpuAppBean {
     static final Environment environment = (Environment) SpringContextUtils
             .getBeanById("environment");
 
-    static final SecurityTool securityTool = (SecurityTool) SpringContextUtils
-            .getBeanById("securityTool");
-
     /**
      * 模拟Get请求的提交
      *
@@ -44,8 +42,21 @@ public class ActionBean extends IpuAppBean {
         StringBuilder action = new StringBuilder();
         action.append((String) param.remove("action"));
 
+        //从param中拿走url
+        StringBuilder path = new StringBuilder();
+        path.append((String) param.remove("url"));
+
+        String error = "";
+
         //对action进行格式化
-        autoFormat(action);
+        if (StringUtils.isNotEmpty(action)) {
+            autoFormat(action);
+        } else if (StringUtils.isNotEmpty(path)) {
+            autoUrl(path);
+            action = path;
+        } else {
+            error = "action和url全为空!";
+        }
 
         //从param中拿走isEncrypt
         Boolean isEncrypt = Boolean.parseBoolean((String) param.remove("isEncrypt"));
@@ -103,17 +114,6 @@ public class ActionBean extends IpuAppBean {
         return resultData;
     }
 
-    private void encrypt(IData param, IData resultData) throws Exception {
-        //需要加密,调用tool的加密算法
-        //对请求加密
-        String requestEncrypt = securityTool.encrypt(param);
-        resultData.put("requestEncrypt",requestEncrypt);
-
-        //对响应加密
-        String resultEncrypt = securityTool.encrypt(resultData);
-        resultData.put("resultEncrypt",resultEncrypt);
-    }
-
     /**
      * 模拟Post请求的提交
      *
@@ -127,8 +127,22 @@ public class ActionBean extends IpuAppBean {
         StringBuilder action = new StringBuilder();
         action.append((String) param.remove("action"));
 
+        //从param中拿走url
+        StringBuilder path = new StringBuilder();
+        path.append((String) param.remove("url"));
+
+        String error = "";
+
         //对action进行格式化
-        autoFormat(action);
+        if (StringUtils.isNotEmpty(action)) {
+            autoFormat(action);
+        } else if (StringUtils.isNotEmpty(path)) {
+            autoUrl(path);
+            action = path;
+        } else {
+            error = "action和url全为空!";
+        }
+
 
         //从param中拿走isEncrypt
         Boolean isEncrypt = Boolean.parseBoolean((String) param.remove("isEncrypt"));
@@ -161,8 +175,8 @@ public class ActionBean extends IpuAppBean {
             resultData.put("result", result);
         } catch (RestClientException e) {
             e.printStackTrace();
-
-            resultData.put("error", e);
+            error = e.toString();
+            resultData.put("error", error);
         }
 
         //判断是否需要加密
@@ -187,7 +201,28 @@ public class ActionBean extends IpuAppBean {
                 .append("/")
                 .append(environment.getProperty("server.context-path"))
                 .append("/mobiledata?action=")
-                ;
+        ;
         action.insert(0, prefix);
+    }
+
+    //对url格式化的方法
+    private void autoUrl(StringBuilder url) {
+        if (!StringUtils.startsWithAny(url, "http://", "https://")) {
+            url.insert(0, "http://");
+        }
+    }
+
+    //对请求的参数,即k-v区域加密的算法
+    private void encrypt(IData param, IData resultData) throws Exception {
+        //需要加密,调用tool的加密算法
+        SecurityTool securityTool = new SecurityTool();
+
+        //对请求加密
+        String requestEncrypt = securityTool.encrypt(param);
+        resultData.put("requestEncrypt", requestEncrypt);
+
+        //对响应加密
+        String resultEncrypt = securityTool.encrypt(resultData);
+        resultData.put("resultEncrypt", resultEncrypt);
     }
 }

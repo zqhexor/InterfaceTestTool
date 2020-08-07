@@ -10,4 +10,16 @@
     <action name="ActionBean.getActionBean" class="com.ai.interfacetest.bean.ActionBean" method="getActionBean" verify="false"></action>
     <!--模拟发送Post请求-->
     <action name="ActionBean.postActionBean" class="com.ai.interfacetest.bean.ActionBean" method="postActionBean" verify="false"></action>
+
+    <!--模拟客户端,加密请求-->
+    <action name="CustomerBean.encryptRequest" class="com.ai.interfacetest.bean.CustomerBean" method="encryptRequest" verify="false"></action>
+    <!--模拟客户端,解密响应-->
+    <action name="CustomerBean.decodeResponse" class="com.ai.interfacetest.bean.CustomerBean" method="decodeResponse" verify="false"></action>
+
+    <!--模拟服务器,解密请求-->
+    <action name="ServerBean.decodeRequest" class="com.ai.interfacetest.bean.ServerBean" method="decodeRequest" verify="false"></action>
+    <!--模拟服务器,加密响应-->
+    <action name="ServerBean.encryptResponse" class="com.ai.interfacetest.bean.ServerBean" method="encryptResponse" verify="false"></action>
+    <!--测试接口-->
+    <action name="TestController.test2" class="com.ai.interfacetest.controller.TestController" method="test2" verify="false"></action>
 </datas>

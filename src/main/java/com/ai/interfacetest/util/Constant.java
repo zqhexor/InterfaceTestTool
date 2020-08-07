@@ -30,4 +30,7 @@ public class Constant {
     //返回数据
     public static final String RETURN_DATA = "RETURN_DATA";
 
+    public static final String DATA = "data";
+    public static final String KEY = "key";
+
 }

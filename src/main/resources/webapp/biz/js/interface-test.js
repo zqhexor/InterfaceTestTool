@@ -1,36 +1,24 @@
 require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplate'], function ($, ipuUI, Mobile, WadeMobile, Wade, Common, artTemplate) {
   $(function () {
-    let publicKey;
-    let privateKey;
 
     // 上传
     $(".upload-btn").click(function () {
       let $node = $(this).parents(".ipu-form-item");
       $node.find(".file")[0].click();
       // $node.find(".file").trigger("click");
-        $node.find(".file").on('change', function () {
-          ipuUI.showPreloader("上传中")
-          getFileContent($node.find(".file")[0],function (result) {
-            ipuUI.hidePreloader(true)
-            $node.find(".file").attr("content",result);
-            let filesList = $node.find(".file")[0].files
-            if (filesList.length > 0) {
-              $node.find(".file-item").text(filesList[0].name);
-              $node.find(".file-area").show();
-              if ($node.hasClass("public-key")) {
-                publicKey = filesList[0];
-              } else {
-                privateKey = filesList[0];
-              }
-            } else {
-              $node.find(".file-item").text("");
-              $node.find(".file-area").hide();
-              if ($node.hasClass("public-key")) {
-                publicKey = undefined;
-              } else {
-                privateKey = undefined;
-              }
-            }
+      $node.find(".file").on('change', function () {
+        ipuUI.showPreloader("上传中")
+        getFileContent($node.find(".file")[0], function (result) {
+          ipuUI.hidePreloader(true)
+          $node.find(".file").attr("content", result);
+          let filesList = $node.find(".file")[0].files
+          if (filesList.length > 0) {
+            $node.find(".file-item").text(filesList[0].name);
+            $node.find(".file-area").show();
+          } else {
+            $node.find(".file-item").text("");
+            $node.find(".file-area").hide();
+          }
         })
       })
 
@@ -43,9 +31,9 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
 
     // 删除键值对
     $(".request-area").on("click", ".delete-sign", function () {
-      if($(this).hasClass("clear-sign")){
+      if ($(this).hasClass("clear-sign")) {
         $(this).parents(".request-item").find("input").val("");
-      }else{
+      } else {
         $(this).parents(".request-item").remove();
       }
       updateRequestItem();
@@ -67,9 +55,9 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
       }
     }
 
+    // 读取文件内容
     function getFileContent(fileInput, callback) {
       if (fileInput.files && fileInput.files.length > 0 && fileInput.files[0].size > 0) {
-        //下面这一句相当于JQuery的：var file =$("#upload").prop('files')[0];
         var file = fileInput.files[0];
         if (window.FileReader) {
           var reader = new FileReader();
@@ -81,10 +69,11 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
             }
           };
           // 包含中文内容用gbk编码
-          reader.readAsText(file, 'gbk');
+          reader.readAsText(file, 'utf-8');
         }
       }
     }
+
     // 键盘检测输入事件
     $(".request-area").on("keyup", "input", function () {
       //当输入一个新的key时,自动的增加一组新的键值对
@@ -127,11 +116,7 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
       let $node = $(this).parents(".ipu-form-item");
       $node.find(".file-item").text("");
       $node.find(".file-area").hide();
-      if ($node.hasClass("public-key")) {
-        publicKey = undefined;
-      } else {
-        privateKey = undefined;
-      }
+      $node.find(".file").attr("content", "");
     });
 
     // 加密
@@ -146,7 +131,7 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
             params.put(key, value);
           }
         }
-        params.put(publicKey,$(".public-key .file").attr('content'));
+        params.put("publicKey", $(".public-key .file").attr('content'));
         $("#request-decode").val(params.toString());
         //向后台发送请求
         ipuUI.showIndicator();

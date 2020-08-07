@@ -8,30 +8,29 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
       let $node = $(this).parents(".ipu-form-item");
       $node.find(".file")[0].click();
       // $node.find(".file").trigger("click");
-      ipuUI.showPreloader("上传中")
-      getFileContent($node.find(".file")[0],function (result) {
-        ipuUI.hidePreloader(true)
-        $node.find(".file").attr("content",result);
-        let filesList = $node.find(".file")[0].files
-        if (filesList.length > 0) {
-          $node.find(".file-item").text(filesList[0].name);
-          $node.find(".file-area").show();
-          if ($node.hasClass("public-key")) {
-            publicKey = filesList[0];
-          } else {
-            privateKey = filesList[0];
-          }
-        } else {
-          $node.find(".file-item").text("");
-          $node.find(".file-area").hide();
-          if ($node.hasClass("public-key")) {
-            publicKey = undefined;
-          } else {
-            privateKey = undefined;
-          }
-        }
         $node.find(".file").on('change', function () {
-
+          ipuUI.showPreloader("上传中")
+          getFileContent($node.find(".file")[0],function (result) {
+            ipuUI.hidePreloader(true)
+            $node.find(".file").attr("content",result);
+            let filesList = $node.find(".file")[0].files
+            if (filesList.length > 0) {
+              $node.find(".file-item").text(filesList[0].name);
+              $node.find(".file-area").show();
+              if ($node.hasClass("public-key")) {
+                publicKey = filesList[0];
+              } else {
+                privateKey = filesList[0];
+              }
+            } else {
+              $node.find(".file-item").text("");
+              $node.find(".file-area").hide();
+              if ($node.hasClass("public-key")) {
+                publicKey = undefined;
+              } else {
+                privateKey = undefined;
+              }
+            }
         })
       })
 

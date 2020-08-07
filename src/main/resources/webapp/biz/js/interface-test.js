@@ -1,17 +1,31 @@
 require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplate'], function ($, ipuUI, Mobile, WadeMobile, Wade, Common, artTemplate) {
   $(function () {
+    let publicKey;
+    let privateKey;
+
     // 上传
-    $("#upload-btn").click(function () {
-      $("#file")[0].click();
-      // $("#file").trigger("click");
-      $("#file").on('change', function () {
-        let filesList = $("#file")[0].files
+    $(".upload-btn").click(function () {
+      let $node = $(this).parents(".ipu-form-item");
+      $node.find(".file")[0].click();
+      // $node.find(".file").trigger("click");
+      $node.find(".file").on('change', function () {
+        let filesList = $node.find(".file")[0].files
         if (filesList.length > 0) {
-          $(".file-item").text(filesList[0].name);
-          $(".file-area").show();
+          $node.find(".file-item").text(filesList[0].name);
+          $node.find(".file-area").show();
+          if ($node.hasClass("public-key")) {
+            publicKey = filesList[0];
+          } else {
+            privateKey = filesList[0];
+          }
         } else {
-          $(".file-item").text("");
-          $(".file-area").hide();
+          $node.find(".file-item").text("");
+          $node.find(".file-area").hide();
+          if ($node.hasClass("public-key")) {
+            publicKey = undefined;
+          } else {
+            privateKey = undefined;
+          }
         }
       })
     });
@@ -86,9 +100,30 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
 
     // 删除文件
     $("i.icon-delete").click(function () {
-      $(".file-item").text("");
-      $(".file-area").hide();
+      let $node = $(this).parents(".ipu-form-item");
+      $node.find(".file-item").text("");
+      $node.find(".file-area").hide();
+      if ($node.hasClass("public-key")) {
+        publicKey = undefined;
+      } else {
+        privateKey = undefined;
+      }
     });
+
+    // 加密
+    $("#isEncrypt").change(function () {
+      if ($(this).prop("checked") == true) {
+
+      }
+    })
+
+    // 解密
+    $("#isDecrypt").change(function () {
+      if ($(this).prop("checked") == true) {
+
+      }
+    })
+
 
     // 测试
     $(".common-btn").click(function () {

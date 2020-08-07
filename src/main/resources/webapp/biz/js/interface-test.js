@@ -8,7 +8,10 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
       let $node = $(this).parents(".ipu-form-item");
       $node.find(".file")[0].click();
       // $node.find(".file").trigger("click");
-      $node.find(".file").on('change', function () {
+      ipuUI.showPreloader("上传中")
+      getFileContent($node.find(".file")[0],function (result) {
+        ipuUI.hidePreloader(true)
+        $node.find(".file").attr("content",result);
         let filesList = $node.find(".file")[0].files
         if (filesList.length > 0) {
           $node.find(".file-item").text(filesList[0].name);
@@ -27,7 +30,11 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
             privateKey = undefined;
           }
         }
+        $node.find(".file").on('change', function () {
+
+        })
       })
+
     });
 
     // 新增键值对
@@ -61,6 +68,24 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
       }
     }
 
+    function getFileContent(fileInput, callback) {
+      if (fileInput.files && fileInput.files.length > 0 && fileInput.files[0].size > 0) {
+        //下面这一句相当于JQuery的：var file =$("#upload").prop('files')[0];
+        var file = fileInput.files[0];
+        if (window.FileReader) {
+          var reader = new FileReader();
+          reader.onloadend = function (evt) {
+            if (evt.target.readyState == FileReader.DONE) {
+              console.log(evt.target.result)
+              callback(evt.target.result);
+
+            }
+          };
+          // 包含中文内容用gbk编码
+          reader.readAsText(file, 'gbk');
+        }
+      }
+    }
     // 键盘检测输入事件
     $(".request-area").on("keyup", "input", function () {
       //当输入一个新的key时,自动的增加一组新的键值对
@@ -112,10 +137,8 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
 
     // 加密
     $("#isEncrypt").change(function () {
-      if ($(this).prop("checked") == true) {
-        //封装参数
+      if ($(this).prop("checked") === true) {
         let params = Wade.DataMap();
-        params.put("publicKey",publicKey);
         //封装key-value
         for (let i = 0; i < $(".request-item").size(); i++) {
           let key = $(".request-item").eq(i).find("input:eq(0)").val().trim();
@@ -124,6 +147,7 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
             params.put(key, value);
           }
         }
+        params.put(publicKey,$(".public-key .file").attr('content'));
         $("#request-decode").val(params.toString());
         //向后台发送请求
         ipuUI.showIndicator();
@@ -132,17 +156,18 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
           result = typeof (result) == "string" ? Wade.DataMap(result) : result;
           console.log(result);
           if (result.get(Constant.RETURN_CODE_KEY) == Constant.RETURN_CODE_SUCCESS) {
-            console.log("成功!!!");
+
           } else {
             ipuUI.toast(result.get(Constant.RETURN_MSG_KEY));
           }
         });
+
       }
     })
 
     // 解密
     $("#isDecrypt").change(function () {
-      if ($(this).prop("checked") == true) {
+      if ($(this).prop("checked") === true) {
 
       }
     })

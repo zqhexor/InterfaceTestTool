@@ -1,8 +1,6 @@
 package demo;
 
 import com.ai.ipu.basic.cipher.DES;
-import com.ai.ipu.basic.log.ILogger;
-import com.ai.ipu.basic.log.IpuLoggerFactory;
 import com.ai.ipu.server.servlet.ServletManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;

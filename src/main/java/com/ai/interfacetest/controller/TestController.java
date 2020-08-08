@@ -1,48 +1,34 @@
 package com.ai.interfacetest.controller;
 
-import com.ai.interfacetest.core.bean.IpuAppBean;
-import com.ai.interfacetest.util.SpringContextUtils;
-import com.ailk.common.data.IData;
-import com.ailk.common.data.impl.DataMap;
-import com.alibaba.fastjson.JSON;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
-public class TestController extends IpuAppBean {
+@Controller
+@RequestMapping("test")
+public class TestController{
 
-    public String test1(IData param) throws Exception{
-
-        //设置请求数据的格式
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        //封装参数
-        MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
-        params.add("data", JSON.toJSONString(param));
-
-        //封装请求内容
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params,headers);
-
-        System.out.println("test1的param:"+param);
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.postForObject("http://localhost:8080/InterfaceTestTool/mobiledata?action=Test.t2",requestEntity,String.class);
-
-        return "参数获取测试";
+    //http://localhost:8080/InterfaceTestTool/test/test1
+    @RequestMapping("test1")
+    @ResponseBody
+    public String test1(){
+        return "test1";
     }
 
-    public String test2(IData param) throws Exception{
+    @RequestMapping("test2")
+    @ResponseBody
+    public String test2(@RequestParam("file") MultipartFile file){
 
-
-
-        return "访问到了test2!";
+        return "test2";
     }
+
+
 
 }

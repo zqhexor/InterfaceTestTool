@@ -69,7 +69,8 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
             }
           };
           // 包含中文内容用gbk编码
-          reader.readAsText(file, 'utf-8');
+          // reader.readAsText(file, 'utf-8');
+          reader.readAsBinaryString(file);
         }
       }
     }
@@ -131,8 +132,18 @@ require(['jquery', 'ipuUI', 'mobile', 'wadeMobile', 'jcl', 'common', 'artTemplat
             params.put(key, value);
           }
         }
-        params.put("publicKey", $(".public-key .file").attr('content'));
+        let file1 = $(".public-key .file")[0].files[0];
+        console.log("file1:"+file1);
+        let file2 = $(".public-key .file")[0];
+        console.log("file2:"+file2);
+        // params.put("publicKey", file1); //后台拿到的是null
+        params.put("publicKey", file2); //后台拿到的是null
         $("#request-decode").val(params.toString());
+
+        // var formData = new FormData();
+        // formData.append("params",params);
+        // formData.append("file",file);
+
         //向后台发送请求
         ipuUI.showIndicator();
         Common.callSvc("CustomerBean.encryptRequest", params, function (result) {

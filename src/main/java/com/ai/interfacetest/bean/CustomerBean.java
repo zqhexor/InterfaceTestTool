@@ -2,16 +2,19 @@ package com.ai.interfacetest.bean;
 
 import com.ai.interfacetest.core.bean.IpuAppBean;
 import com.ai.interfacetest.util.Constant;
+import com.ai.interfacetest.util.SpringContextUtils;
 import com.ai.ipu.basic.cipher.DES;
 import com.ai.ipu.basic.cipher.RSA;
+import com.ai.ipu.restful.boot.IpuRestApplication;
 import com.ailk.common.data.IData;
 import com.alibaba.fastjson.JSON;
+import org.springframework.core.env.Environment;
 
 import javax.crypto.SecretKey;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Map;
 
 /**
  * 用于模拟客户端的Bean
@@ -43,8 +46,9 @@ public class CustomerBean extends IpuAppBean {
     public IData encryptRequest(IData param) throws Exception {
         //创建加密后的数据
         String encryptData = "无效返回数据!";
+        Object publickey =  param.get("publickey");
         //--------------------------------------------------------------------------------测试1开始:param的内容是否正确
-        System.out.println(param.toString());
+        System.out.println("param内容:"+param.toString());
         System.out.println(JSON.toJSON(param));
         //--------------------------------------------------------------------------------测试1结束
         if (param != null) {
@@ -52,10 +56,9 @@ public class CustomerBean extends IpuAppBean {
             encryptData = DES.encryptString(secretKeyThreadLocal.get(), param.toString());
         }
         //获取公钥文件
-        File publickeyFile = (File) param.get("publickey");
-        InputStream in = new FileInputStream(publickeyFile);
+        String publickeyString =  param.getString("publickey");
         //对加密数据的secretKey的基准key即randomDesKey,使用公钥加密
-        String encryptDesKey = RSA.encrypt(getPublicKey(in), randomDesKeyThreadLocal.get());//todo visio没有写RSA加密key的步骤
+        String encryptDesKey = RSA.encrypt(getPublicKey(publickeyString), randomDesKeyThreadLocal.get());//todo visio没有写RSA加密key的步骤
         //创建返回对象
         IData resultData = createReturnData();
         //存入加密后 的请求数据
@@ -79,8 +82,8 @@ public class CustomerBean extends IpuAppBean {
      * 获取RAS公钥的方法
      * @return
      */
-    private RSAPublicKey getPublicKey(InputStream in) throws Exception {
-        RSAPublicKey publicKey = RSA.loadPublicKey(in);
+    private RSAPublicKey getPublicKey(String publickeyString) throws Exception {
+        RSAPublicKey publicKey = RSA.loadPublicKey(publickeyString);
         return publicKey;
     }
 }

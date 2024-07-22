@@ -14,8 +14,8 @@ public class LoginBean extends IpuAppBean {
     /**
      * 邮箱后缀列表
      */
-    private static final String[] MAIL_SUFFIX_ARR = {"@asiainfo.com",
-            "@asiainfo-sec.com"};
+    private static final String[] MAIL_SUFFIX_ARR = {"@xxx.com",
+            "@xxx-sec.com"};
 
     /**
      * 登录

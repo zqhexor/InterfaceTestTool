@@ -1,7 +1,6 @@
 /*!
  * WADE JavaScript Library v2.0 for zepto
  * http://www.wadecn.com/
- * auth:xiedx@asiainfo-linkage.com
  * Copyright 2014, WADE
  */
 define(["zepto"],function($){
